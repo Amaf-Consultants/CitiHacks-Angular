@@ -1,0 +1,12 @@
+.eventdetails{
+  /* border: 5px solid rgb(154, 167, 204); */
+  align-content: center;
+  margin:10px 0 0 45px;
+  border-radius: 15px;
+  border: 1px solid;
+  width: 840px;
+  height: 80px;
+  box-shadow: 5px 10px 8px #888888;
+  background-color: white;
+
+}

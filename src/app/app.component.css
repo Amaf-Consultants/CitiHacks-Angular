@@ -1,0 +1,10 @@
+.title-tem >::ng-deep .mat-figure{
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.mat-grid-tile {
+  display: block;
+  position: absolute;
+  overflow: auto;
+}
