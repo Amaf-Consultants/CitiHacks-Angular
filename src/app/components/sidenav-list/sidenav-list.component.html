@@ -1,1 +1,6 @@
-<p>sidenav-list works!</p>
+<mat-nav-list>
+	<a *ngFor="let item of sidenavListItems" mat-list-item (click)="item.click(); closeSidenav()">
+		<mat-icon>{{ item.icon }}</mat-icon>
+		<span class="list-item-text">{{ item.name }}</span>
+	</a>
+</mat-nav-list>

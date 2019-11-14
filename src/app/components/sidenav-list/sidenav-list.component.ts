@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-sidenav-list',
-  templateUrl: './sidenav-list.component.html',
-  styleUrls: ['./sidenav-list.component.css']
+	selector: 'app-sidenav-list',
+	templateUrl: './sidenav-list.component.html',
+	styleUrls: ['./sidenav-list.component.css']
 })
-export class SidenavListComponent implements OnInit {
+export class SidenavListComponent {
+	@Output() sidenavClosed = new EventEmitter();
 
-  constructor() { }
+	sidenavListItems = [
+		{
+			name: 'Sign Out',
+			icon: 'power_off',
+			click: () => this.logOff()
+		}
+	];
 
-  ngOnInit() {
-  }
+	closeSidenav() {
+		this.sidenavClosed.emit();
+	}
 
+	logOff() {}
 }
