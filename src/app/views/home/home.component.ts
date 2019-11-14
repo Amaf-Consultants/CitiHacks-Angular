@@ -1,15 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+	selector: 'app-home',
+	templateUrl: './home.component.html',
+	styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+	accepted = [
+		{
+			category: 'Answered Questions',
+			value: 66
+		},
+		{
+			category: 'Total Questions',
+			value: 111
+		}
+	];
 
-  constructor() { }
+	rejected = [
+		{
+			category: 'Rejected Questions',
+			value: 33
+		},
+		{
+			category: 'Total Questions',
+			value: 111
+		}
+	];
 
-  ngOnInit() {
-  }
-
+	duplicated = [
+		{
+			category: 'Duplicated Questions',
+			value: 12
+		},
+		{
+			category: 'Total Questions',
+			value: 111
+		}
+	];
 }

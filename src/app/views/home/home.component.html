@@ -1,8 +1,29 @@
 <div fxFlex fxLayout fxLayoutGap="20px">
 	<mat-card>
-		<app-pie-chart></app-pie-chart>
+		<app-pie-chart
+			[data]="accepted"
+			[categoryField]="'category'"
+			[valueField]="'value'"
+			[id]="'accepted'"
+			[graphTitle]="'Answered Questions'"
+		></app-pie-chart>
 	</mat-card>
 	<mat-card>
-		<app-pie-chart></app-pie-chart>
+		<app-pie-chart
+			[data]="rejected"
+			[categoryField]="'category'"
+			[valueField]="'value'"
+			[id]="'rejected'"
+			[graphTitle]="'Rejected Questions'"
+		></app-pie-chart>
+	</mat-card>
+	<mat-card>
+		<app-pie-chart
+			[data]="duplicated"
+			[categoryField]="'category'"
+			[valueField]="'value'"
+			[id]="'duplicated'"
+			[graphTitle]="'Duplicated Questions'"
+		></app-pie-chart>
 	</mat-card>
 </div>
