@@ -7,12 +7,12 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 })
 export class DashboardAnalyticsComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('eventduration') eventduration: ElementRef;
-  @ViewChild('subscribers') subscribers: ElementRef;
-  @ViewChild('queued') messageinqueu: ElementRef;
-  @ViewChild('received') messagereceived: ElementRef;
-  @ViewChild('duplicate') duplicate: ElementRef;
-  @ViewChild('answered') answered: ElementRef;
+  @ViewChild('eventduration', { static: true }) eventduration: ElementRef;
+  @ViewChild('subscribers', { static: false }) subscribers: ElementRef;
+  @ViewChild('queued', { static: false }) messageinqueu: ElementRef;
+  @ViewChild('received', { static: false }) messagereceived: ElementRef;
+  @ViewChild('duplicate', { static: false }) duplicate: ElementRef;
+  @ViewChild('answered', { static: false }) answered: ElementRef;
   public canvas: CanvasRenderingContext2D;
  x = null;
  y = null;  radius = null;  lineWidth = null;  strockStyle = null;
