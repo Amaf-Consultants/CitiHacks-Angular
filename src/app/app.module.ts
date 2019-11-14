@@ -17,6 +17,7 @@ import { CitihackService } from './components/service/citihack.service';
 import {CommunicationService} from './components/service/communication.service';
 import { SidenavListComponent } from './components/sidenav-list/sidenav-list.component';
 import { HomeComponent } from './views/home/home.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HomeComponent } from './views/home/home.component';
     MessagesDetailsComponent,
     DashboardAnalyticsComponent,
     SidenavListComponent,
-    HomeComponent
+    HomeComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
