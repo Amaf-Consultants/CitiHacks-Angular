@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { MessagesDetailsComponent } from './components/messages-details/messages
 import { DashboardAnalyticsComponent } from './components/dashboard-analytics/dashboard-analytics.component';
 import { CitihackService } from './components/service/citihack.service';
 import {CommunicationService} from './components/service/communication.service';
+import { SidenavListComponent } from './components/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +26,15 @@ import {CommunicationService} from './components/service/communication.service';
     EventDetailsComponent,
     MessagesListComponent,
     MessagesDetailsComponent,
-    DashboardAnalyticsComponent
+    DashboardAnalyticsComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    FlexLayoutModule
   ],
   providers: [CitihackService, CommunicationService],
   bootstrap: [AppComponent]

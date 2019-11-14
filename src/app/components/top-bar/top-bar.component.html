@@ -1,6 +1,30 @@
-<div class='topBar'>
+<mat-toolbar color="primary">
+	<div fxHide.gt-xs>
+		<button mat-icon-button (click)="toggleSidenav()">
+			<mat-icon>menu</mat-icon>
+		</button>
+	</div>
+	<button mat-button class="title">Event Monitor Dashboard</button>
+	<div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+		<ul fxLayout fxLayoutGap="20px">
+			<li class="toolbar-icon" [matMenuTriggerFor]="menu">
+				<button mat-icon-button>
+					<mat-icon>person_outline</mat-icon>
+				</button>
+			</li>
+		</ul>
+	</div>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+	<button mat-menu-item>Item 1</button>
+	<button mat-menu-item>Item 2</button>
+</mat-menu>
+
+<!-- <div class='topBar'>
   <h1>Event Monitor Dashborad</h1>
-</div>
+</div> -->
+
 <!-- <div class="dropdown">
     <button class="dropbtn">Dropdown</button>
     <div class="dropdown-content">
@@ -10,7 +34,7 @@
     </div>
   </div> -->
 
-  <!-- <div class="flex-container">
+<!-- <div class="flex-container">
       <div>1</div>
       <div>2</div>
       <div>3</div>
