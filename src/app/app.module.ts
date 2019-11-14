@@ -16,6 +16,7 @@ import { DashboardAnalyticsComponent } from './components/dashboard-analytics/da
 import { CitihackService } from './components/service/citihack.service';
 import {CommunicationService} from './components/service/communication.service';
 import { SidenavListComponent } from './components/sidenav-list/sidenav-list.component';
+import { HomeComponent } from './views/home/home.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SidenavListComponent } from './components/sidenav-list/sidenav-list.com
     MessagesListComponent,
     MessagesDetailsComponent,
     DashboardAnalyticsComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

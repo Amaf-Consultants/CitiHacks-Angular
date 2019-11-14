@@ -1,4 +1,15 @@
-<button (click) ='sendMsg()'>Click to Subscribe</button>
+<mat-sidenav-container>
+	<mat-sidenav #sidenav role="navigation">
+		<app-sidenav-list (sidenavClosed)="sidenav.close()"></app-sidenav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<app-top-bar (sidenavToggled)="sidenav.toggle()"></app-top-bar>
+		<main>
+			<router-outlet></router-outlet>
+		</main>
+	</mat-sidenav-content>
+</mat-sidenav-container>
+<!-- <button (click) ='sendMsg()'>Click to Subscribe</button>
 <mat-grid-list cols="4" rowHeight="100px">
   <mat-grid-tile
     class="title-tem"
@@ -20,8 +31,4 @@
     <app-dashboard-analytics *ngIf="tile.text === 'DashboradAnalytics'"></app-dashboard-analytics>
   </mat-grid-tile>
 </mat-grid-list>
-
-
-<!-- Copyright 2019 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->
+-->

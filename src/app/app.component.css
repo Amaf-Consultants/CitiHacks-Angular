@@ -1,10 +1,24 @@
-.title-tem >::ng-deep .mat-figure{
-  align-items: flex-start;
-  justify-content: flex-start;
+mat-sidenav-container,
+mat-sidenav-content,
+mat-sidenav {
+	height: 100%;
+}
+
+mat-sidenav {
+	width: 250px;
+}
+
+main {
+	padding: 10px;
+}
+
+.title-tem > ::ng-deep .mat-figure {
+	align-items: flex-start;
+	justify-content: flex-start;
 }
 
 .mat-grid-tile {
-  display: block;
-  position: absolute;
-  overflow: auto;
+	display: block;
+	position: absolute;
+	overflow: auto;
 }
