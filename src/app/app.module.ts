@@ -18,6 +18,7 @@ import {CommunicationService} from './components/service/communication.service';
 import { SidenavListComponent } from './components/sidenav-list/sidenav-list.component';
 import { HomeComponent } from './views/home/home.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { AnalyticsCardComponent } from './components/analytics-card/analytics-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     DashboardAnalyticsComponent,
     SidenavListComponent,
     HomeComponent,
-    PieChartComponent
+    PieChartComponent,
+    AnalyticsCardComponent
   ],
   imports: [
     BrowserModule,

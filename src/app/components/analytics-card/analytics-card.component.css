@@ -1,0 +1,13 @@
+.analytics-card {
+  min-width: 300px;
+}
+
+.number-total {
+  font-size: 33px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.context-type {
+  color: lightgray;
+}

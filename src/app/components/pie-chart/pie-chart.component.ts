@@ -43,6 +43,7 @@ export class PieChartComponent implements AfterViewInit, OnDestroy {
 			title.text = this.graphTitle;
 			title.fontSize = 25;
 			title.marginBottom = 0;
+			title.fill = am4core.color('#fff');
 		});
 	}
 

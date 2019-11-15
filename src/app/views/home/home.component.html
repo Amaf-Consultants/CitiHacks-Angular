@@ -1,29 +1,16 @@
-<div fxFlex fxLayout fxLayoutGap="20px">
-	<mat-card>
-		<app-pie-chart
-			[data]="accepted"
-			[categoryField]="'category'"
-			[valueField]="'value'"
-			[id]="'accepted'"
-			[graphTitle]="'Answered Questions'"
-		></app-pie-chart>
-	</mat-card>
-	<mat-card>
-		<app-pie-chart
-			[data]="rejected"
-			[categoryField]="'category'"
-			[valueField]="'value'"
-			[id]="'rejected'"
-			[graphTitle]="'Rejected Questions'"
-		></app-pie-chart>
-	</mat-card>
-	<mat-card>
-		<app-pie-chart
-			[data]="duplicated"
-			[categoryField]="'category'"
-			[valueField]="'value'"
-			[id]="'duplicated'"
-			[graphTitle]="'Duplicated Questions'"
-		></app-pie-chart>
-	</mat-card>
+<div fxFlex fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutGap="20px">
+  <app-analytics-card [contextType]="'Subscribers'" [numberTotal]="'121'"></app-analytics-card>
+  <app-analytics-card [contextType]="'Questions Answered'" [numberTotal]="'11'"></app-analytics-card>
+  <mat-card>
+    <app-pie-chart [data]="accepted" [categoryField]="'category'" [valueField]="'value'" [id]="'accepted'"
+      [graphTitle]="'Answered Questions'"></app-pie-chart>
+  </mat-card>
+  <mat-card>
+    <app-pie-chart [data]="rejected" [categoryField]="'category'" [valueField]="'value'" [id]="'rejected'"
+      [graphTitle]="'Rejected Questions'"></app-pie-chart>
+  </mat-card>
+  <mat-card>
+    <app-pie-chart [data]="duplicated" [categoryField]="'category'" [valueField]="'value'" [id]="'duplicated'"
+      [graphTitle]="'Duplicated Questions'"></app-pie-chart>
+  </mat-card>
 </div>
