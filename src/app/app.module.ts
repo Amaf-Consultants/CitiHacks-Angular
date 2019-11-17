@@ -14,6 +14,7 @@ import { MessagesDetailsComponent } from './components/messages-details/messages
 import { DashboardAnalyticsComponent } from './components/dashboard-analytics/dashboard-analytics.component';
 import { CitihackService } from './components/service/citihack.service';
 import {CommunicationService} from './components/service/communication.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {CommunicationService} from './components/service/communication.service';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    FormsModule
   ],
   providers: [CitihackService, CommunicationService],
   bootstrap: [AppComponent]

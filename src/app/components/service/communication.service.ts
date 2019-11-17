@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, from, Observable, of } from 'rxjs';
+import { Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CitihackService } from './citihack.service';
 import { MessageData } from './data/message-data';
@@ -14,7 +14,7 @@ import { Message } from '../model/message';
 @Injectable()
 export class CommunicationService {
   public messages: Subject<any>;
-  private url_suffix: String = 'ws://citihacks123.azurewebsites.net//citihacks-0.0.1-SNAPSHOT/';
+  private url_suffix: String = 'ws://citihacks123.azurewebsites.net//citihacks/';
   private local_url_suffix: String = 'ws://127.0.0.1:8080/citihacks/';
   private socket_url: String = '';
 
@@ -26,6 +26,12 @@ export class CommunicationService {
    //  this.socket_url = this.url_suffix + 'endpoint/1';
     return  this.citihackService.connect(this.socket_url);
   }
+
+  public pullEventData(): Subject<any> {
+    this.socket_url  = this.local_url_suffix + 'endpoint/1?pull=Events'; // Local Connection
+  //  this.socket_url = this.url_suffix + 'endpoint/1';
+   return  this.citihackService.connect(this.socket_url);
+ }
 
   public subscribeEventData(): Subject<any> {
     this.socket_url  = this.local_url_suffix + 'endpoint/1?push=EventUpdates'; // Local Connection
@@ -52,6 +58,12 @@ export class CommunicationService {
   public getMessageData(): Subject<any> {
     this.socket_url  = this.local_url_suffix +  'endpoint/3'; // Local Connection
   //  this.socket_url = this.url_suffix + 'endpoint/3';
+
+    return <Subject<any>> this.citihackService.connect(this.socket_url );
+  }
+
+  public updateMessageData(): Subject<any> {
+    this.socket_url  = this.local_url_suffix +  'endpoint/3?update=msgUpdate';
 
     return <Subject<any>> this.citihackService.connect(this.socket_url );
   }

@@ -1,54 +1,112 @@
-<button (click) ='getDashBoard()'>Click to Subscribe Dashboard</button>
+<!-- <button (click) ='getDashBoard()'>Click to Subscribe Dashboard</button>
+
+<button (click) ='updateMessage()'>Click to Update Message</button> -->
 
 <div class="header">
-  <h1>Chania</h1>
+  <h2>Dashboard</h2>
 </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="eventslist">Event</label>
+      <select
+        class="select1"
+        name="eventName"
+        #mySelect
+        (change)="getDashBoard()"
+        id="eventName"
+        class="form-control"
+        [(ngModel)]="selectedEvent"
+      >
+        <option *ngFor="let e of events" [value]="e.eventId">{{
+          e.eventName
+        }}</option>
+      </select>
+    </div>
+  </div>
+
+
 <div class="row">
   <div class="col-3 col-s-3 menu">
     <ul>
-      <li>Inbox({{this.inbox}})</li>
-      <li>Read</li>
-      <li>Answered ({{answered}})</li>
-      <li>Duplicate ({{duplicate}})</li>
-      <li>Rejected ({{rejected}})</li>
+      <li (click)="onClickMessageType('Inbox')">Inbox({{ this.inbox }})</li>
+      <li (click)="onClickMessageType('Answered')">
+        Answered ({{ answered }})
+      </li>
+      <li (click)="onClickMessageType('Duplicate')">
+        Duplicate ({{ duplicate }})
+      </li>
+      <li (click)="onClickMessageType('Reject')">Rejected ({{ rejected }})</li>
     </ul>
   </div>
 
-  <div class="col-6 col-s-9" style='font-size: .3em !important;'>
+  <div class="col-6 col-s-9" style="font-size: .6em !important;overflow:scroll">
     <div style="overflow-x:auto;">
       <table>
-        <tr >
+        <tr>
           <th>#</th>
-          <th>User</th>
-          <th>Message</th>
-
-
+          <th>Event Id</th>
+          <th>Message Status</th>
+          <th>Message Action</th>
         </tr>
-        <tr *ngFor='let m of messages'>
-          <td>{{m.userId}}</td>
-          <td>{{m.message}}</td>
-
-
+        <tr *ngFor="let m of msgList; let i = index">
+          <td>{{ i }}</td>
+          <td>{{ m.eventId }}</td>
+          <td>{{ m.msgStatus }}</td>
+          <td>
+            <div>
+              <select
+                class="select2"
+                name="{{ m.msgId }}"
+                (change)="updateMessage($event)"
+                id="{{ m.msgId }}"
+                class="form-control"
+              >
+                <option *ngFor="let status of msgStatuses" [value]="status">{{
+                  status
+                }}</option>
+              </select>
+            </div>
+          </td>
         </tr>
       </table>
-    </div>  </div>
+    </div>
+    <div>
+      Testing
+    </div>
+  </div>
 
   <div class="col-3 col-s-12">
     <div class="aside">
-      <h2>Subscriber</h2>
-      <p>{{subscriber}}</p>
-      <h2>Number of Messages</h2>
-      <p>{{inbox}}</p>
-      <h2>Rejected</h2>
-      <p>{{rejected}}</p>
-      <h2>Duplicate</h2>
-      <p>{{duplicate}}</p>
-      <h2>Answered</h2>
-      <p>{{answered}}</p>
+      <div class="row divCart" >
+        <div class="col-3 col-s-3 menu">
+            <h2>Subscriber</h2>
+            <p>{{ subscriber }}</p>
+        </div>
+      </div>
+      <div class="row divCart" >
+          <div class="col-3 col-s-3 menu">
+              <h2>Rejected</h2>
+              <p>{{ rejected }}</p>
+          </div>
+        </div>
+        <div class="row divCart" >
+            <div class="col-3 col-s-3 menu">
+                <h2>Duplicate</h2>
+                <p>{{ duplicate }}</p>
+            </div>
+          </div>
+          <div class="row divCart" >
+              <div class="col-3 col-s-3 menu">
+                  <h2>Answered</h2>
+                  <p>{{ answered }}</p>
+              </div>
+            </div>
     </div>
   </div>
 </div>
 
 <div class="footer">
-  <p>Resize the browser window to see how the content respond to the resizing.</p>
+  <p>
+    Resize the browser window to see how the content respond to the resizing.
+  </p>
 </div>

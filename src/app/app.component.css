@@ -20,7 +20,7 @@ html {
 .header {
   background-color: #9933cc;
   color: #ffffff;
-  padding: 15px;
+  padding: 5px;
 }
 
 .menu ul {
@@ -102,11 +102,46 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid rgb(34, 17, 17);
 }
 
-th, td {
+th {
   text-align: left;
-  font-size: 1em;
-  padding: 8px;
+  color:black;
+  font-size: 1.6em;
+  padding: 4px;
+}
+td {
+  text-align: left;
+  color:blue;
+  font-size: 1.2em;
+  padding: 4px;
+}
+
+
+/*Select drop down*/
+
+.select1 {
+  width: 20%;
+  margin:12px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.select2 {
+  width: 100%;
+  margin:12px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+
+.divCart{
+  background-color: brown;
+  border-radius: 5px;
+  margin:3px;
 }
