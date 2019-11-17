@@ -14,8 +14,8 @@ import { Message } from '../model/message';
 @Injectable()
 export class CommunicationService {
   public messages: Subject<any>;
-  private url_suffix: String = 'ws://citihacks123.azurewebsites.net//citihacks/';
-  private local_url_suffix: String = 'ws://127.0.0.1:8080/citihacks/';
+  private local_url_suffix: String = 'ws://citihacks123.azurewebsites.net//citihacks/';
+ // private local_url_suffix: String = 'ws://127.0.0.1:8080/citihacks/';
   private socket_url: String = '';
 
   constructor(private citihackService: CitihackService) { }
