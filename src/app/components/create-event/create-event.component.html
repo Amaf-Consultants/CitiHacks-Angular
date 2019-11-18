@@ -1,0 +1,35 @@
+<mat-card class="mat-typography">
+	<mat-card-title class="padding-t10 padding-x10">Create an Event</mat-card-title>
+	<mat-card-subtitle class="padding-x10">
+		Use this form to create an event so that users can find your event to ask a question to
+	</mat-card-subtitle>
+	<mat-card-content class="padding-x10">
+		<form class="create-event-form">
+			<mat-form-field class="full-width">
+				<mat-label>Event Name</mat-label>
+				<input matInput placeholder="Event Name" name="event_name" required />
+			</mat-form-field>
+			<mat-form-field class="full-width">
+				<mat-label>Event Description</mat-label>
+				<input matInput placeholder="Event Description" name="event_description" required />
+			</mat-form-field>
+			<mat-form-field class="full-width">
+				<mat-label>Event Date</mat-label>
+				<input matInput [matDatepicker]="picker" placeholder="Event Date" />
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+			<mat-form-field class="full-width">
+				<input matInput [ngxTimepicker]="tpicker" />
+				<ngx-material-timepicker-toggle matSuffix [for]="tpicker"></ngx-material-timepicker-toggle>
+				<ngx-material-timepicker #tpicker></ngx-material-timepicker>
+			</mat-form-field>
+		</form>
+	</mat-card-content>
+	<mat-card-actions class="padding-x10">
+		<button mat-raised-button (click)="createEvent()" color="primary">CREATE EVENT</button>
+	</mat-card-actions>
+	<!-- <mat-card-footer>
+    <p>Copyright Citi</p>
+  </mat-card-footer> -->
+</mat-card>
