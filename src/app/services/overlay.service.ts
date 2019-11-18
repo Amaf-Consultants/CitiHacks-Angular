@@ -27,6 +27,7 @@ export class OverlayService {
 				.centerVertically(),
 			hasBackdrop: true,
 			backdropClass: 'dark-backdrop',
+			panelClass: 'zIndex-adjust',
 			scrollStrategy: this.overlay.scrollStrategies.block()
 		});
 		const injectionData = overlayProps ? this.createInjector(overlayProps) : null;

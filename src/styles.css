@@ -7,7 +7,7 @@ body {
 }
 
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 .cdk-overlay-backdrop.cdk-overlay-backdrop-showing.dark-backdrop {
@@ -15,6 +15,26 @@ body {
   opacity: 0.85 !important;
 }
 
+.cdk-overlay-container,
+.cdk-overlay-backdrop,
+.cdk-global-overlay-wrapper,
+.zIndex-adjust {
+  z-index: 998;
+}
+
 .mat-list-base {
   padding-top: 0 !important;
+}
+
+.timepicker__header {
+  background-color: #c2185b !important;
+}
+
+.timepicker__body,
+.timepicker__actions {
+  background-color: #303030 !important;
+}
+
+.clock-face {
+  background-color: #424242 !important;
 }
