@@ -14,15 +14,26 @@
 				<input matInput placeholder="Event Description" name="event_description" required />
 			</mat-form-field>
 			<mat-form-field class="full-width">
+				<mat-label>Event Location</mat-label>
+				<input matInput placeholder="Event Location" name="event_location" required />
+			</mat-form-field>
+			<mat-form-field class="full-width">
 				<mat-label>Event Date</mat-label>
 				<input matInput [matDatepicker]="picker" placeholder="Event Date" />
 				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 				<mat-datepicker #picker></mat-datepicker>
 			</mat-form-field>
 			<mat-form-field class="full-width">
-				<input matInput [ngxTimepicker]="tpicker" />
-				<ngx-material-timepicker-toggle matSuffix [for]="tpicker"></ngx-material-timepicker-toggle>
-				<ngx-material-timepicker #tpicker></ngx-material-timepicker>
+				<mat-label>Start Time</mat-label>
+				<input matInput [ngxTimepicker]="tpickers" />
+				<ngx-material-timepicker-toggle matSuffix [for]="tpickers"></ngx-material-timepicker-toggle>
+				<ngx-material-timepicker #tpickers></ngx-material-timepicker>
+			</mat-form-field>
+			<mat-form-field class="full-width">
+				<mat-label>End Time</mat-label>
+				<input matInput [ngxTimepicker]="tpickere" />
+				<ngx-material-timepicker-toggle matSuffix [for]="tpickere"></ngx-material-timepicker-toggle>
+				<ngx-material-timepicker #tpickere></ngx-material-timepicker>
 			</mat-form-field>
 		</form>
 	</mat-card-content>
