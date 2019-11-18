@@ -1,37 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];
-
+import { AllCommunityModules, GridApi } from '@ag-grid-community/all-modules';
+import { Component } from '@angular/core';
+import data from '../../../api/message-data.json';
+import { MessageDetailsService } from '../service/message-details.service';
+import { CheckboxComponent } from './checkbox/checkbox.component';
+import { Message, MessageStatus } from './model/message';
 
 
 @Component({
@@ -39,14 +11,69 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './message-grid.component.html',
   styleUrls: ['./message-grid.component.css']
 })
-export class MessageGridComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+export class MessageGridComponent {
+  columnDefs;
+  rowData: Message[];
+  modules = AllCommunityModules;
+  gridApi: GridApi;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  constructor(private messageDetailsService: MessageDetailsService) { }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.columnDefs = [
+      { headerName: 'User', field: 'UserId' },
+      { headerName: 'Event', field: 'EventId' },
+      { headerName: 'Source', field: 'MsgAppType' },
+      { headerName: 'Message', field: 'Message' },
+      { headerName: 'Date', field: 'MsgCreateDate' },
+      {
+        headerName: "Read",
+        field: "Read",
+        minWidth: 70,
+        maxWidth: 100,
+        cellRendererFramework: CheckboxComponent,
+        cellRendererParams: { messageStatus: MessageStatus.Read }
+      },
+      {
+        headerName: "Accepted",
+        field: "accepted",
+        minWidth: 70,
+        maxWidth: 100,
+        cellRendererFramework: CheckboxComponent,
+        cellRendererParams: { messageStatus: MessageStatus.Accepted }
+      },
+      {
+        headerName: "Rejected",
+        field: "rejected",
+        minWidth: 70,
+        maxWidth: 100,
+        cellRendererFramework: CheckboxComponent,
+        cellRendererParams: { messageStatus: MessageStatus.Rejected }
+      }
+    ];
+
+    this.rowData = data as Message[];
+
   }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridApi.sizeColumnsToFit();
+    window.addEventListener('resize', () => {
+      this.gridApi.sizeColumnsToFit();
+    })
+    // set the message details to show the first message
+    if (this.rowData.length > 0) {
+      this.messageDetailsService.showMessageDetails(this.rowData[0]);
+    }
+  }
+
+  onRowClicked(params) {
+    console.log('row clicked', params)
+    this.messageDetailsService.showMessageDetails(params.node.data)
+  }
+
+
+
 }
 

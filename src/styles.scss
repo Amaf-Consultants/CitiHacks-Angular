@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+ /* Set the colors to blue and amber */
+$primary-color: #2196F3; // blue-500
+$accent-color: #FFD740; // amber-A200
+
+@import "~@ag-grid-community/all-modules/dist/styles/ag-grid.css";
+@import "~@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
