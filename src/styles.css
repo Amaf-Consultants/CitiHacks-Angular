@@ -38,3 +38,12 @@ body {
 .clock-face {
   background-color: #424242 !important;
 }
+
+.mat-menu-panel {
+  min-height: auto !important;
+}
+
+.mat-menu-content:not(:empty) {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
