@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
  /* Set the colors to blue and amber */
+
+ @import "../node_modules/@ag-grid-community/all-modules/dist/styles/ag-grid.scss";
+ @import "../node_modules/@ag-grid-community/all-modules/dist/styles/ag-theme-material/sass/ag-theme-material.scss";
+
 $primary-color: #2196F3; // blue-500
 $accent-color: #FFD740; // amber-A200
-
-@import "~@ag-grid-community/all-modules/dist/styles/ag-grid.css";
-@import "~@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
-
+$odd-row-background-color: rgb(7, 65, 90);
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
