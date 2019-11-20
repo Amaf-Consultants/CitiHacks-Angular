@@ -1,10 +1,13 @@
 import { AllCommunityModules, ColumnApi, GridApi } from '@ag-grid-community/all-modules';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { CommunicationsService } from 'src/app/services/communication.service';
 import { DeviceService, DeviceType } from 'src/app/services/device.service';
 import { OverlayService } from 'src/app/services/overlay.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
+import { MessagesDetailsComponent } from '../messages-details/messages-details.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { MessageStatusComponent } from './message-status/message-status.component';
 import { Message, MessageStatus } from './model/message';
@@ -32,7 +35,8 @@ export class MessageGridComponent {
     private deviceService: DeviceService,
     private overlayService: OverlayService,
     private communicationsService: CommunicationsService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -76,6 +80,12 @@ export class MessageGridComponent {
         colId: "mobile",
         cellRendererFramework: MessageStatusComponent,
         editable: true
+      },
+      {
+        headerName: "",
+        field: "details",
+        cellRendererFramework: MessagesDetailsComponent,
+        minWidth: 50
       }
     ];
 
@@ -151,6 +161,19 @@ export class MessageGridComponent {
     setTimeout(() => {
       this.updateSubject.next(updatedMessage);
     }, 2000);
+  }
+
+  openDetails(message: any) {
+    const dialogRef = this.dialog.open(MessageDialogComponent, {
+      width: '500px',
+      height: '700px;',
+      data: message
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+    //this.overlayService.open(MessageDialogComponent);
   }
 
   isExternalFilterPresent() {

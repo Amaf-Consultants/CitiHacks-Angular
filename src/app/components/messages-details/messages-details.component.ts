@@ -1,25 +1,27 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Message } from '../message-grid/model/message';
+import { ICellRendererAngularComp } from '@ag-grid-community/angular';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-messages-details',
   templateUrl: './messages-details.component.html',
   styleUrls: ['./messages-details.component.css']
 })
-export class MessagesDetailsComponent implements OnInit, OnDestroy {
-  message: Message;
-  messageSubscription: Subscription;
+export class MessagesDetailsComponent implements ICellRendererAngularComp {
+  params;
+  data;
   constructor() { }
 
-  ngOnInit() {
-
+  agInit(params) {
+    this.params = params;
+    this.data = params.node.data;
   }
 
-  ngOnDestroy() {
-    if (this.messageSubscription) {
-      this.messageSubscription.unsubscribe();
-    }
+  refresh() {
+    return false;
+  }
+
+  openParent() {
+    this.params.context.componentParent.openDetails(this.data);
   }
 
 }

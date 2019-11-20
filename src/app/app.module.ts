@@ -11,6 +11,7 @@ import { AnalyticsCardComponent } from './components/analytics-card/analytics-ca
 import { DashboardAnalyticsComponent } from './components/dashboard-analytics/dashboard-analytics.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { MessageCenterComponent } from './components/message-center/message-center.component';
+import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 import { CheckboxComponent } from './components/message-grid/checkbox/checkbox.component';
 import { MessageGridComponent } from './components/message-grid/message-grid.component';
 import { MessageStatusComponent } from './components/message-grid/message-status/message-status.component';
@@ -38,7 +39,8 @@ import { HomeComponent } from './views/home/home.component';
     HomeComponent,
     PieChartComponent,
     AnalyticsCardComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    MessageDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +50,10 @@ import { HomeComponent } from './views/home/home.component';
     DemoMaterialModule,
     FlexLayoutModule,
     DeviceDetectorModule.forRoot(),
-    AgGridModule.withComponents([CheckboxComponent, MessageStatusComponent]),
+    AgGridModule.withComponents([CheckboxComponent, MessageStatusComponent, MessagesDetailsComponent]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [MessageDialogComponent]
 })
 export class AppModule { }
