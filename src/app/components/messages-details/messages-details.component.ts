@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MessageDetailsService } from '../service/message-details.service';
 import { Message } from '../message-grid/model/message';
 
 @Component({
@@ -9,16 +8,16 @@ import { Message } from '../message-grid/model/message';
   styleUrls: ['./messages-details.component.css']
 })
 export class MessagesDetailsComponent implements OnInit, OnDestroy {
-  message:Message;
+  message: Message;
   messageSubscription: Subscription;
-  constructor(private messageDetailsService: MessageDetailsService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.messageSubscription = this.messageDetailsService.message.subscribe(message=> this.message = message)
+
   }
 
-  ngOnDestroy(){
-    if(this.messageSubscription){
+  ngOnDestroy() {
+    if (this.messageSubscription) {
       this.messageSubscription.unsubscribe();
     }
   }

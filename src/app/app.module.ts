@@ -17,9 +17,6 @@ import { MessageStatusComponent } from './components/message-grid/message-status
 import { MessagesDetailsComponent } from './components/messages-details/messages-details.component';
 import { MessagesListComponent } from './components/messages-list/messages-list.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
-import { CitihackService } from './components/service/citihack.service';
-import { CommunicationService } from './components/service/communication.service';
-import { MessageDetailsService } from './components/service/message-details.service';
 import { SidenavListComponent } from './components/sidenav-list/sidenav-list.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { DemoMaterialModule } from './material-module';
@@ -30,6 +27,7 @@ import { HomeComponent } from './views/home/home.component';
   declarations: [
     AppComponent,
     MessageCenterComponent,
+    MessageStatusComponent,
     MessageGridComponent,
     TopBarComponent,
     EventDetailsComponent,
@@ -40,20 +38,19 @@ import { HomeComponent } from './views/home/home.component';
     HomeComponent,
     PieChartComponent,
     AnalyticsCardComponent,
-    CheckboxComponent,
-    MessageStatusComponent
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    AgGridModule.withComponents([CheckboxComponent]),
-    DeviceDetectorModule.forRoot(),
     AppRoutingModule,
     DemoMaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    DeviceDetectorModule.forRoot(),
+    AgGridModule.withComponents([CheckboxComponent, MessageStatusComponent]),
   ],
-  providers: [CitihackService, CommunicationService, MessageDetailsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

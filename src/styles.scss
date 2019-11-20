@@ -1,11 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
  /* Set the colors to blue and amber */
 
+$background-color:#424242;
+$foreground-color:white;
+$header-foreground-color: white;
+$hover-color: #232323;
+$accent-color: #ff4081; 
+$secondary-font-size:15px;
+$secondary-font-weight:400;
+
  @import "../node_modules/@ag-grid-community/all-modules/dist/styles/ag-grid.scss";
  @import "../node_modules/@ag-grid-community/all-modules/dist/styles/ag-theme-material/sass/ag-theme-material.scss";
+ @import "./app-theme";
 
-$primary-color: #2196F3; // blue-500
-$accent-color: #FFD740; // amber-A200
-$odd-row-background-color: rgb(7, 65, 90);
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+ html,
+ body {
+   height: 100%;
+   margin: 0;
+ }
+ 
+ body {
+   font-family: Roboto, 'Helvetica Neue', sans-serif;
+ }
+ 
+ .cdk-overlay-backdrop.cdk-overlay-backdrop-showing.dark-backdrop {
+   background: #000;
+   opacity: 0.85 !important;
+ }
+ 
+ .cdk-overlay-container,
+ .cdk-overlay-backdrop,
+ .cdk-global-overlay-wrapper,
+ .zIndex-adjust {
+   z-index: 998;
+ }
+ 
+ .mat-list-base {
+   padding-top: 0 !important;
+ }
+ 
+ .timepicker__header {
+   background-color: #c2185b !important;
+ }
+ 
+ .timepicker__body,
+ .timepicker__actions {
+   background-color: #303030 !important;
+ }
+ 
+ .clock-face {
+   background-color: #424242 !important;
+ } 
+
+.ag-theme-material .answered{
+    background-color: green;
+  }
+
+  .ag-theme-material .read{
+    background-color: #303030;
+  }
+
+  .ag-theme-material .new{
+    font-weight: bolder;
+    font-size: 16px;
+  }
+
+  .mat-checkbox-frame{
+    border-color:white;
+  }

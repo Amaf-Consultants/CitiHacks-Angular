@@ -21,7 +21,10 @@ export class DeviceService {
     }
 
     getDevice(): DeviceType {
-        if (this.deviceService.isDesktop()) return DeviceType.Desktop;
+        if (this.deviceService.isDesktop()) {
+            if (window.matchMedia("(max-width: 700px)").matches) return DeviceType.Mobile;  // handle xs on desktop
+            else return DeviceType.Desktop
+        }
         else if (this.deviceService.isTablet) return DeviceType.Tablet;
         else return DeviceType.Mobile;
     }

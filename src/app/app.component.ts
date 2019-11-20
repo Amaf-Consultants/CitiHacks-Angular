@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunicationService } from './components/service/communication.service';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +10,7 @@ import { CommunicationService } from './components/service/communication.service
 
 export class AppComponent implements OnInit {
 
-  constructor(private communicationService: CommunicationService) {
-
-    communicationService.messages.subscribe(
-      msg => {
-        console.log('Response from websocket', msg);
-      }
-    );
-
-  }
+  constructor() { }
 
 
   tiles: Tile[] = [
@@ -69,7 +60,6 @@ export class AppComponent implements OnInit {
 
   sendMsg() {
     console.log('new message from client to websocket: ', 'Testing message');
-    this.communicationService.messages.next(this.test);
   }
 
   ngOnInit(): void {

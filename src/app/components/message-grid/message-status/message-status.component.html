@@ -1,20 +1,8 @@
-<h4>Basic mat-select</h4>
 <mat-form-field>
-    <mat-label>Favorite food</mat-label>
-    <mat-select>
-        <mat-option *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
-
-<h4>Basic native select</h4>
-<mat-form-field>
-    <mat-label>Cars</mat-label>
-    <select matNativeControl required>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+    <select #s (change)="statusChanged(s.value)" matNativeControl required>
+        <option [selected]="status==='Read'" value="Read">Read</option>
+        <option [selected]="status==='Answered'" value="Answered">Answered</option>
+        <option [selected]="status==='Duplicate'" value="Duplicate">Duplicate</option>
+        <option [selected]="status==='Reject'" value="Reject">Rejected</option>
     </select>
 </mat-form-field>

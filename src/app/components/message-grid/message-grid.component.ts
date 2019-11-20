@@ -1,10 +1,12 @@
 import { AllCommunityModules, ColumnApi, GridApi } from '@ag-grid-community/all-modules';
 import { Component } from '@angular/core';
-import { DeviceService, DeviceType } from 'src/app/services/device.service.js';
-import data from '../../../api/message-data.json';
-import { MessageDetailsService } from '../service/message-details.service';
+import { Subject, Subscription } from 'rxjs';
+import { CommunicationsService } from 'src/app/services/communication.service';
+import { DeviceService, DeviceType } from 'src/app/services/device.service';
+import { OverlayService } from 'src/app/services/overlay.service';
+import { SharedService } from 'src/app/services/shared.service';
 import { CheckboxComponent } from './checkbox/checkbox.component';
-import { MessageStatusComponent } from './message-status/message-status.component.js';
+import { MessageStatusComponent } from './message-status/message-status.component';
 import { Message, MessageStatus } from './model/message';
 
 
@@ -20,52 +22,81 @@ export class MessageGridComponent {
   gridApi: GridApi;
   columnApi: ColumnApi;
   deviceType: DeviceType = DeviceType.Desktop;
+  context;
+  updateSubscription: Subscription;
+  updateSubject: Subject<Message> = new Subject();
+  rowCssRules;
+  static msgStatusFilter: string = 'ALL';
 
-  constructor(private messageDetailsService: MessageDetailsService, private deviceService: DeviceService) { }
+  constructor(
+    private deviceService: DeviceService,
+    private overlayService: OverlayService,
+    private communicationsService: CommunicationsService,
+    private sharedService: SharedService
+  ) { }
 
   ngOnInit() {
     this.columnDefs = [
-      { headerName: 'User', field: 'UserId', colId: '1desktop' },
-      { headerName: 'Event', field: 'EventId', colId: '2desktop' },
-      { headerName: 'Source', field: 'MsgAppType', colId: '3desktop' },
-      { headerName: 'Message', field: 'Message' },
-      { headerName: 'Date', field: 'MsgCreateDate', colId: '4desktop' },
+      { headerName: 'User', field: 'userId', colId: '1desktop' },
+      { headerName: 'Event', field: 'eventId', colId: '2desktop' },
+      { headerName: 'Source', field: 'msgAppType', colId: '3desktop' },
+      { headerName: 'Message', field: 'message' },
+      { headerName: 'UpdatedOn', field: 'msgUpdateDate', colId: '4desktop', sortable: true },
       {
         headerName: "Read",
-        field: "Read",
+        field: "read",
         colId: '5desktop',
-        minWidth: 70,
-        maxWidth: 100,
         cellRendererFramework: CheckboxComponent,
         cellRendererParams: { messageStatus: MessageStatus.Read }
       },
       {
-        headerName: "Accepted",
-        field: "Accepted",
+        headerName: "Answered",
+        field: "answered",
         colId: '6desktop',
-        minWidth: 70,
-        maxWidth: 100,
         cellRendererFramework: CheckboxComponent,
-        cellRendererParams: { messageStatus: MessageStatus.Accepted }
+        cellRendererParams: { messageStatus: MessageStatus.Answered }
+      },
+      {
+        headerName: "Duplicate",
+        field: "duplicate",
+        colId: '7desktop',
+        cellRendererFramework: CheckboxComponent,
+        cellRendererParams: { messageStatus: MessageStatus.Duplicate }
       },
       {
         headerName: "Rejected",
-        field: "Rejected",
-        colId: '7desktop',
-        minWidth: 70,
-        maxWidth: 100,
+        field: "reject",
+        colId: '8desktop',
         cellRendererFramework: CheckboxComponent,
-        cellRendererParams: { messageStatus: MessageStatus.Rejected }
+        cellRendererParams: { messageStatus: MessageStatus.Reject }
       },
       {
         headerName: "Status",
         field: "status",
         colId: "mobile",
-        cellRendererFramework: MessageStatusComponent
+        cellRendererFramework: MessageStatusComponent,
+        editable: true
       }
     ];
 
-    this.rowData = data as Message[];
+    this.sharedService.messageUpdates.subscribe((x: Message[]) => {
+      let sortedData = x.sort((a, b) => new Date(b.msgUpdateDate).getTime() - new Date(a.msgUpdateDate).getTime());
+      this.rowData = sortedData;
+    });
+
+    // start listening to filter updates
+    this.sharedService.gridFiltersUpdates.subscribe(x => {
+      MessageGridComponent.msgStatusFilter = x;
+      this.gridApi.onFilterChanged();
+    })
+
+    this.context = { componentParent: this };
+
+    this.rowCssRules = {
+      "read": (params) => { return params.data.msgStatus === MessageStatus.Read },
+      "answered": (params) => { return params.data.msgStatus === MessageStatus.Answered },
+      "new": (params) => { return params.data.msgStatus === null }
+    };
 
     this.deviceType = this.deviceService.getDevice();
 
@@ -82,25 +113,61 @@ export class MessageGridComponent {
       this.setColumnsVisibility();
       this.gridApi.sizeColumnsToFit();
     })
-    // set the message details to show the first message
-    if (this.rowData.length > 0) {
-      this.messageDetailsService.showMessageDetails(this.rowData[0]);
-    }
+
   }
 
   onRowClicked(params) {
     console.log('row clicked', params)
-    this.messageDetailsService.showMessageDetails(params.node.data)
+    //this.overlayService.open(MessagesDetailsComponent)
+    //this.messageDetailsService.showMessageDetails(params.node.data)
   }
 
   private setColumnsVisibility() {
     this.columnApi.getAllColumns().forEach(col => {
       if (col.getColId().endsWith('desktop')) this.columnApi.setColumnVisible(col, this.deviceType === DeviceType.Desktop);
-      if (col.getColId().endsWith('mobile')) this.columnApi.setColumnVisible(col, this.deviceType === DeviceType.Desktop);
+      if (col.getColId().endsWith('mobile')) this.columnApi.setColumnVisible(col, this.deviceType === DeviceType.Mobile);
     })
   }
 
 
+  updateMessage(updatedMessage: Message, rowId: string) {
+    updatedMessage.msgUpdateDate = new Date().toDateString();
+    console.log('update status', updatedMessage);
+    let itemToUpdate = [];
+    itemToUpdate.push(updatedMessage)
+    // update row node
+    let row = this.gridApi.getRowNode(rowId);
+    row.setData(updatedMessage);
+    this.gridApi.refreshCells({ rowNodes: [row], force: true });
+
+    // push new updated messages
+    this.sharedService.pushMessages(this.rowData)
+
+    this.updateSubject = this.communicationsService.updateMessageData();
+
+    this.updateSubscription = this.updateSubject.subscribe(x => {
+      console.log('done', x)
+    })
+    setTimeout(() => {
+      this.updateSubject.next(updatedMessage);
+    }, 2000);
+  }
+
+  isExternalFilterPresent() {
+    // if msg status is not all, then we are filtering
+    return MessageGridComponent.msgStatusFilter != 'ALL';
+  }
+
+  doesExternalFilterPass(node) {
+    console.log('change filters', MessageGridComponent.msgStatusFilter)
+    switch (MessageGridComponent.msgStatusFilter) {
+      case 'read': return node.data.msgStatus === "Read";
+      case 'answered': return node.data.msgStatus === "Answered";
+      case 'duplicate': return node.data.msgStatus === "Duplicate";
+      case 'reject': return node.data.msgStatus === "Reject";
+      default: return true;
+    }
+  }
 
 }
 

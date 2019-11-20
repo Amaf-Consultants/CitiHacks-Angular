@@ -1,5 +1,6 @@
 import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { Component } from '@angular/core';
+import { Message, MessageStatus } from '../model/message';
 
 @Component({
   selector: 'app-message-status',
@@ -7,19 +8,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./message-status.component.scss']
 })
 export class MessageStatusComponent implements ICellRendererAngularComp {
-  foods: any[];
+  params;
+  status: MessageStatus;
+  messageStatus = MessageStatus;
+  data: Message;
   constructor() { }
 
   agInit(params) {
-    this.foods = [
-      { value: 'steak-0', viewValue: 'Steak' },
-      { value: 'pizza-1', viewValue: 'Pizza' },
-      { value: 'tacos-2', viewValue: 'Tacos' }
-    ];
+    this.params = params;
+    this.data = params.node.data;
+    this.status = params.node.data.msgStatus;
+    //console.log(params)
   }
 
   refresh() {
     return false;
+  }
+
+  statusChanged(value) {
+    console.log('option changed', value);
+    this.data.msgStatus = value;
+    this.params.context.componentParent.updateMessage(this.data, this.params.node.rowIndex);
   }
 
 }
