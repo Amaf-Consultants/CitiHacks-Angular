@@ -1,33 +1,25 @@
 <mat-sidenav-container>
-	<mat-sidenav #sidenav role="navigation">
-		<app-sidenav-list (sidenavClosed)="sidenav.close()"></app-sidenav-list>
-	</mat-sidenav>
-	<mat-sidenav-content>
-		<app-top-bar (sidenavToggled)="sidenav.toggle()"></app-top-bar>
-		<main>
-			<router-outlet></router-outlet>
-		</main>
-	</mat-sidenav-content>
+  <mat-sidenav #sidenav role="navigation">
+    <app-sidenav-list (sidenavClosed)="sidenav.close()"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-top-bar (sidenavToggled)="sidenav.toggle()"></app-top-bar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
 </mat-sidenav-container>
 <!-- <button (click) ='sendMsg()'>Click to Subscribe</button>
 <mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile
-    class="title-tem"
-    *ngFor="let tile of tiles"
-    [colspan]="tile.cols"
-    [rowspan]="tile.rows"
+  <mat-grid-tile class="title-tem" *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
     [style.background]="tile.color">
 
     <app-top-bar *ngIf="tile.text === 'TopBar'"></app-top-bar>
-    <app-messages-list *ngIf="tile.text === 'MessageList'"></app-messages-list>
+    <app-message-grid *ngIf="tile.text === 'MessageGrid'"></app-message-grid>
     <app-dashboard-analytics *ngIf="tile.text === 'DashboarAnalytics'"></app-dashboard-analytics>
-    <app-messages-details
-      *ngIf="tile.text === 'MessageDetails'"
-    ></app-messages-details>
-    <app-message-center
-      *ngIf="tile.text === 'MessageCenter'"
-    ></app-message-center>
-    <app-event-details  *ngIf="tile.text === 'EventDetails'"></app-event-details>
+    <app-messages-details *ngIf="tile.text === 'MessageDetails'"></app-messages-details>
+    <app-message-center *ngIf="tile.text === 'MessageCenter'"></app-message-center>
+    <app-event-details *ngIf="tile.text === 'EventDetails'"></app-event-details>
     <app-dashboard-analytics *ngIf="tile.text === 'DashboradAnalytics'"></app-dashboard-analytics>
   </mat-grid-tile>
 </mat-grid-list>

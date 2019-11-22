@@ -1,0 +1,8 @@
+<mat-form-field>
+    <select #s (change)="statusChanged(s.value)" matNativeControl required>
+        <option [selected]="status==='Read'" value="Read">Read</option>
+        <option [selected]="status==='Answered'" value="Answered">Answered</option>
+        <option [selected]="status==='Duplicate'" value="Duplicate">Duplicate</option>
+        <option [selected]="status==='Reject'" value="Reject">Rejected</option>
+    </select>
+</mat-form-field>

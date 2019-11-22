@@ -22,3 +22,11 @@ main {
 	position: absolute;
 	overflow: auto;
 }
+
+app-message-grid{
+  width:100%;
+}
+
+app-messages-details{
+  padding:10px;
+}
