@@ -30,6 +30,9 @@ export class MessageGridComponent {
   updateSubject: Subject<Message> = new Subject();
   rowCssRules;
   static msgStatusFilter: string = 'ALL';
+  getRowNodeId = (data) => {
+    return data.msgId;
+  }
 
   constructor(
     private deviceService: DeviceService,
@@ -90,8 +93,12 @@ export class MessageGridComponent {
     ];
 
     this.sharedService.messageUpdates.subscribe((x: Message[]) => {
-      let sortedData = x.sort((a, b) => new Date(b.msgUpdateDate).getTime() - new Date(a.msgUpdateDate).getTime());
+      console.log('got more messages', x)
+      let sortedData = x.sort((a, b) => new Date(b.msgCreateDate).getTime() - new Date(a.msgCreateDate).getTime());
       this.rowData = sortedData;
+      if (this.gridApi) {
+        this.gridApi.setRowData(sortedData);
+      }
     });
 
     // start listening to filter updates
@@ -126,12 +133,6 @@ export class MessageGridComponent {
 
   }
 
-  onRowClicked(params) {
-    console.log('row clicked', params)
-    //this.overlayService.open(MessagesDetailsComponent)
-    //this.messageDetailsService.showMessageDetails(params.node.data)
-  }
-
   private setColumnsVisibility() {
     this.columnApi.getAllColumns().forEach(col => {
       if (col.getColId().endsWith('desktop')) this.columnApi.setColumnVisible(col, this.deviceType === DeviceType.Desktop);
@@ -139,14 +140,13 @@ export class MessageGridComponent {
     })
   }
 
-
-  updateMessage(updatedMessage: Message, rowId: string) {
+  updateMessage(updatedMessage: Message) {
     updatedMessage.msgUpdateDate = new Date().toDateString();
     console.log('update status', updatedMessage);
     let itemToUpdate = [];
     itemToUpdate.push(updatedMessage)
     // update row node
-    let row = this.gridApi.getRowNode(rowId);
+    let row = this.gridApi.getRowNode(updatedMessage.msgId);
     row.setData(updatedMessage);
     this.gridApi.refreshCells({ rowNodes: [row], force: true });
 
@@ -165,8 +165,8 @@ export class MessageGridComponent {
 
   openDetails(message: any) {
     const dialogRef = this.dialog.open(MessageDialogComponent, {
-      width: '500px',
-      height: '700px;',
+      width: '900px',
+      height: '700px',
       data: message
     });
 

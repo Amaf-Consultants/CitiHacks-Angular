@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Message, MessageStatus } from 'src/app/components/message-grid/model/message';
 import { CommunicationsService } from 'src/app/services/communication.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -12,6 +13,10 @@ export class HomeComponent implements OnInit {
 	events: any[] = [];
 	eventSubject: Subject<any>;
 	showSpinner: boolean = true;
+	answered: number = 0;
+	accepted;
+	duplicated;
+	rejected;
 
 	constructor(
 		private communicationsService: CommunicationsService,
@@ -44,8 +49,47 @@ export class HomeComponent implements OnInit {
 		this.sharedService.messageUpdates.subscribe(x => {
 			this.showSpinner = false;
 		})
+
+
+		// subscribe to message updates
+		this.sharedService.messageUpdates.subscribe((x: Message[]) => {
+			this.answered = x.filter(message => message.msgStatus === MessageStatus.Answered).length;
+			this.accepted = [
+				{
+					category: 'Answered Questions',
+					value: this.answered
+				},
+				{
+					category: 'Total Questions',
+					value: x.length
+				}
+			];
+
+			this.rejected = [
+				{
+					category: 'Rejected Questions',
+					value: x.filter(message => message.msgStatus === MessageStatus.Reject).length
+				},
+				{
+					category: 'Total Questions',
+					value: x.length
+				}
+			];
+
+			this.duplicated = [
+				{
+					category: 'Duplicated Questions',
+					value: x.filter(message => message.msgStatus === MessageStatus.Duplicate).length
+				},
+				{
+					category: 'Total Questions',
+					value: x.length
+				}
+			];
+
+		});
 	}
-	accepted = [
+	/*accepted = [
 		{
 			category: 'Answered Questions',
 			value: 66
@@ -76,7 +120,7 @@ export class HomeComponent implements OnInit {
 			category: 'Total Questions',
 			value: 111
 		}
-	];
+	];*/
 
 	eventChanged(eventId: number) {
 		// push the selected event to the shared service

@@ -1,6 +1,6 @@
 <ag-grid-angular style="height: 700px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
-  [modules]="modules" [context]="context" [rowClassRules]="rowCssRules"
-  [isExternalFilterPresent]="isExternalFilterPresent" [doesExternalFilterPass]="doesExternalFilterPass"
-  (gridReady)="onGridReady($event)">
+  [modules]="modules" [context]="context" [rowClassRules]="rowCssRules" [deltaRowDataMode]="true"
+  [getRowNodeId]="getRowNodeId" [isExternalFilterPresent]="isExternalFilterPresent"
+  [doesExternalFilterPass]="doesExternalFilterPass" (gridReady)="onGridReady($event)">
 
 </ag-grid-angular>

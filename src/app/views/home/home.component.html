@@ -1,5 +1,5 @@
-<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
-  <div fxFlex="20">
+<div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px" fxLayoutAlign="space-between">
+  <div fxFlex="18">
     <div fxLayout="column">
       <p>Events:</p>
       <mat-form-field style="width: 200px;">
@@ -13,9 +13,9 @@
   </div>
   <mat-spinner *ngIf="showSpinner"></mat-spinner>
   <div fxLayout="column" fxLayoutGap="20px" *ngIf="!showSpinner">
-    <div fxFlex fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutGap="20px">
+    <div fxFlex fxLayout="row" fxLayout.sm="column" fxFlexFill fxLayoutGap="20px">
       <app-analytics-card [contextType]="'Subscribers'" [numberTotal]="'121'"></app-analytics-card>
-      <app-analytics-card [contextType]="'Questions Answered'" [numberTotal]="'11'"></app-analytics-card>
+      <app-analytics-card [contextType]="'Questions Answered'" [numberTotal]="answered"></app-analytics-card>
       <mat-card>
         <app-pie-chart [data]="accepted" [categoryField]="'category'" [valueField]="'value'" [id]="'accepted'"
           [graphTitle]="'Answered Questions'"></app-pie-chart>

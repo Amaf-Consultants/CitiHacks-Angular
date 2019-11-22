@@ -5,9 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnalyticsCardComponent } from './components/analytics-card/analytics-card.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
 import { DashboardAnalyticsComponent } from './components/dashboard-analytics/dashboard-analytics.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { MessageCenterComponent } from './components/message-center/message-center.component';
@@ -40,7 +42,8 @@ import { HomeComponent } from './views/home/home.component';
     PieChartComponent,
     AnalyticsCardComponent,
     CheckboxComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    CreateEventComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +54,10 @@ import { HomeComponent } from './views/home/home.component';
     FlexLayoutModule,
     DeviceDetectorModule.forRoot(),
     AgGridModule.withComponents([CheckboxComponent, MessageStatusComponent, MessagesDetailsComponent]),
+    NgxMaterialTimepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MessageDialogComponent]
+  entryComponents: [MessageDialogComponent, CreateEventComponent]
 })
 export class AppModule { }

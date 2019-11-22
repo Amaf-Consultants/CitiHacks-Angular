@@ -32,7 +32,7 @@ export class CheckboxComponent implements ICellRendererAngularComp {
     if (!this.value) status = MessageStatus.Reject;
     else status = MessageStatus[(this.params as any).messageStatus]
     this.data.msgStatus = status;
-    this.params.context.componentParent.updateMessage(this.data, this.params.node.rowIndex);
+    this.params.context.componentParent.updateMessage(this.data);
   }
 
 }
